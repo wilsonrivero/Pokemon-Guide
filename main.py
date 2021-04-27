@@ -7,7 +7,7 @@ from io import BytesIO
 def LoadPokemon(value):
    #New Window
    new_screen = Toplevel()
-   new_screen.geometry('400x400')
+   new_screen.geometry('620x400')
 
    #get pokemon
    pokemon = pypokedex.get(name=value)
@@ -15,17 +15,24 @@ def LoadPokemon(value):
    #GET IMAGE
    http = urllib3.PoolManager()
    response = http.request('GET', pokemon.sprites.front.get('default'))
-   image = PIL.Image.open(BytesIO(response.data))
-
+   image = PIL.Image.open(BytesIO(response.data))  
+   
    #pokemon Information
    pokemon_img = Label(new_screen)
-   pokemon_information = Label(new_screen, text=f'Index: {pokemon.dex} - Name: {pokemon.name}', font=('Arial', 16))
-   pokemon_type = Label(new_screen, text=f'{pokemon.types}',  font=('Arial', 16))
+   pokemon_information = Label(new_screen, text=f'{pokemon.dex} - {pokemon.name}', font=('Arial', 12))
+   pokemon_type = Label(new_screen, text=f'Type: {pokemon.types}',  font=('Arial', 12))
+   pokemon_baseStats = Label(new_screen, text=f'{pokemon.base_stats}', font=('Arial', 12))
+   pokemon_weight = Label(new_screen, text=f'Weight: {pokemon.weight}', font=('Arial', 12))
+   pokemon_height = Label(new_screen, text=f'Height: {pokemon.height}', font=('Arial', 12))
+   
 
    #POSITIONS   
-   pokemon_information.place(x=10, y=330)
-   pokemon_type.place(x=10, y=370)
-   pokemon_img.place(x=200, y=30)
+   pokemon_information.place(x=0, y=120)
+   pokemon_type.place(x=0, y=150)
+   pokemon_baseStats.place(x=0, y=180)
+   pokemon_weight.place(x=0, y=210)
+   pokemon_height.place(x=0, y=235)
+   pokemon_img.place(x=120, y=30)
 
    #Put image
    img = PIL.ImageTk.PhotoImage(image)
