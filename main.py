@@ -4,14 +4,36 @@ import PIL.Image, PIL.ImageTk
 import urllib3
 from io import BytesIO
 
-# pokemon = pypokedex.get(name='pikachu')
-# print(pokemon.sprites[0]["default"])
-# print(pokemon)
+def LoadPokemon(value):
+   #New Window
+   new_screen = Toplevel()
+   new_screen.geometry('400x400')
 
-def pokemon(value):
-   p = pypokedex.get(name=value)
-   print(p)
+   #get pokemon
+   pokemon = pypokedex.get(name=value)
 
+   #GET IMAGE
+   http = urllib3.PoolManager()
+   response = http.request('GET', pokemon.sprites.front.get('default'))
+   image = PIL.Image.open(BytesIO(response.data))
+
+   #pokemon Information
+   pokemon_img = Label(new_screen)
+   pokemon_information = Label(new_screen, text=f'Index: {pokemon.dex} - Name: {pokemon.name}', font=('Arial', 16))
+   pokemon_type = Label(new_screen, text=f'{pokemon.types}',  font=('Arial', 16))
+
+   #POSITIONS   
+   pokemon_information.place(x=10, y=330)
+   pokemon_type.place(x=10, y=370)
+   pokemon_img.place(x=200, y=30)
+
+   #Put image
+   img = PIL.ImageTk.PhotoImage(image)
+   pokemon_img.config(image=img)
+   pokemon_img.image = img
+   
+   
+# get value of input
 def getValueInput():
    value = name_pokemon.get()
    return value
@@ -29,7 +51,7 @@ name_pokemon = Entry(screen, width=70, bd=1)
 name_pokemon.place(x=0, y=150)
 
 #Button
-btn = Button(screen, text='Load Pokemon',command=lambda: pokemon(getValueInput()))
+btn = Button(screen, text='Load Pokemon',command=lambda: LoadPokemon(getValueInput()))
 btn.pack()
 btn.place(x=100, y=220)
 
