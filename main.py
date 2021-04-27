@@ -1,5 +1,8 @@
 import pypokedex
 from tkinter import *
+import PIL.Image, PIL.ImageTk
+import urllib3
+from io import BytesIO
 
 # pokemon = pypokedex.get(name='pikachu')
 # print(pokemon.sprites[0]["default"])
