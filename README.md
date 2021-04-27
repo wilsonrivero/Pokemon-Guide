@@ -3,7 +3,8 @@
 <h2>Descrição</h2>
 <p>   
    É um guia pra ajudar a saber sobre os pokemons <br>
-   na qual mostra o nome, indíce, tipo, status base.
+   na qual mostra o nome, indíce, tipo, status base e a imagem do pokemon.
+   Foi desenvolvido com Python
 </p>
 
 <p> 
